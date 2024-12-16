@@ -23,9 +23,9 @@ export class Form extends HTMLElement {
     }
     set (value: ("textarea" | "input")) {
         if (this.type === "textarea") {
-            this.querySelector("textarea").value = value
+            this.querySelector("textarea").value = value.trim()
         } else if (this.type === "input") {
-            this.querySelector("input").value = value
+            this.querySelector("input").value = value.trim()
         }
     }
     setDetail(value: string) {
@@ -47,4 +47,4 @@ export class Form extends HTMLElement {
     }
 }
 customElements.define("k-form", Form);
-console.log("[k-form] registered")
+console.info("[k-form] registered")

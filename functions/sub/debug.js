@@ -1,13 +1,21 @@
-import getParsedSubData from "../internal/getParsedSubData.js";
+import getParsedSubData from "../internal/getParsedSubData.ts";
 
 export async function onRequest (context) {
     const { request } = context;
-    const ParsedSubData = await getParsedSubData(new URL(request.url).searchParams.get("url"), request.headers, context.env.EdgeSubDB);
+    const URLObject = new URL(request.url);
+    const ParsedSubData = await getParsedSubData(
+        URLObject.searchParams.get("url"), 
+        context.env.EdgeSubDB, 
+        URLObject.searchParams.get("show_host") === "true",
+        JSON.parse(URLObject.searchParams.get("http_headers")),
+    );
+    const ResponseBody = JSON.stringify(ParsedSubData)
     
-    return new Response(JSON.stringify(ParsedSubData), {
+    return new Response(ResponseBody, {
         status: 200,
         headers: {
             "Content-Type": "application/json, charset=utf-8",
+            "Content-Length": ResponseBody.length,
         }
     })
 }

@@ -1,6 +1,7 @@
 ---
 import Spliter from "@components/spliter.astro";
 import KForm from "@components/k-form.astro";
+import { Icon } from "astro-icon/components";
 import type { DropdownItemPrototype } from "@components/k-dropdown.astro";
 import { RemoteConfigs } from "@config/RemoteConfigs.js";
 import { Endpoints } from "@config/AvalibleOptoutFormat.js"
@@ -47,13 +48,43 @@ import { Endpoints } from "@config/AvalibleOptoutFormat.js"
         type="k-switch"
         SwitchDefault={true}
     />
+    <KForm
+        slug="isShowHost"
+        desc="在节点名称后添加 Host 字段"
+        type="k-switch"
+        SwitchDefault={false}
+    />
+    <KForm
+        slug="ForcedWS0RTT"
+        desc="强制打开 WS 0-RTT"
+        type="k-switch"
+        SwitchDefault={false}
+    />
+
+
+    <KForm
+        slug="HTTPHeaders"
+        desc="HTTP Headers"
+        detail="请求远端订阅位址时使用的 HTTP Headers, 请务必使用 JSON 格式书写."
+        type="textarea"
+    />
         
     <Spliter />
 
     <code>https://OpenWrt.lan/luci/123" OR ""==" </code>
 
-    <button id="generate">Generate</button>
+    <div class="botton-con">
+        <button id="generate"><Icon name="iconoir:refresh-circle" />  Generate</button>
+        <button id="copy"><Icon name="iconoir:copy" />  Copy</button>
+    </div>
 
 </k-suburl-generator>
 
 <script src="@scripts/components/k-suburl-generator.ts"></script>
+
+<style lang="scss">
+    .botton-con {
+        display: flex;
+        gap: 8px;
+    }
+</style>
